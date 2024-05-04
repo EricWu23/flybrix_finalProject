@@ -127,12 +127,12 @@ public:
 		}
 
 		// Calculate p_term 
-		p_term = 0.0; // You populate this! Function of Kp and error
+		p_term = Kp*error; // You populate this! Function of Kp and error
 		// Calculate i_term
-		i_term = 0.0; // You populate this! Function of Ki and error_integral
+		i_term = Ki*error_integral; // You populate this! Function of Ki and error_integral
 		// Update integral error (error_integral term)
 		// You put code here to calculate the error_integral term!
-
+    error_integral = error_integral+error*delta_time;
 		// Perform integral windup protection
 		float windup_limit = integral_windup_guard;
 		if (error_integral > windup_limit) {
@@ -142,13 +142,13 @@ public:
 			error_integral = -windup_limit;
 		}
 		// Calculate r term
-		r_term = 0.0;// You populate this! Function of Kd and feedback_
+		r_term = Kd*feedback_;// You populate this! Function of Kd and feedback_
 
 		previous_error = error;
 		last_time = now;
 
 		// Return the PIR output command
-		float pir_output = 0.0; // You populate this! Function of p_term, i_term, and r_term
+		float pir_output = p_term + i_term + r_term; // You populate this! Function of p_term, i_term, and r_term
 		return pir_output;
 	};
 
