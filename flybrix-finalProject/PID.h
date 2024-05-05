@@ -148,7 +148,7 @@ public:
 		last_time = now;
 
 		// Return the PIR output command
-		float pir_output = p_term + i_term + r_term; // You populate this! Function of p_term, i_term, and r_term
+		float pir_output = p_term + i_term -  r_term; // You populate this! Function of p_term, i_term, and r_term
 		return pir_output;
 	};
 
